@@ -13,6 +13,22 @@
   height: calc(100vh - 120px);
 }
 
+@media (max-width: 768px) {
+  .location-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 12px;
+  }
+
+  .emp-panel { max-height: 260px; }
+
+  .map-panel { height: 280px; }
+
+  .card-head .flex-center { flex-direction: column; align-items: stretch; gap: 6px; }
+  .card-head .flex-center select,
+  .card-head .flex-center input { width: 100%; }
+}
+
 .emp-panel {
   display: flex;
   flex-direction: column;
@@ -175,7 +191,7 @@
           <span class="card-title">Employee Devices</span>
           <span id="device-count" class="badge badge-gray">0</span>
         </div>
-        <div style="overflow-x:auto">
+        <div class="tbl-wrap">
           <table class="tbl">
             <thead>
               <tr>
@@ -202,7 +218,7 @@
           <span class="card-title">Geofence Alerts</span>
           <span id="alert-count" class="badge badge-red">0</span>
         </div>
-        <div style="overflow-x:auto">
+        <div class="tbl-wrap">
           <table class="tbl">
             <thead>
               <tr>

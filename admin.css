@@ -678,15 +678,166 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-/* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+/* ── Hamburger button (hidden on desktop) ────────────────────── */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: var(--r);
+  color: var(--navy);
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background .15s;
 }
 
+.hamburger:hover { background: var(--gray); }
+
+/* ── Sidebar overlay backdrop ────────────────────────────────── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 99;
+}
+
+.sidebar-overlay.open { display: block; }
+
+/* ── Sidebar close button (mobile only) ──────────────────────── */
+.sidebar-close {
+  display: none;
+  position: absolute;
+  top: 14px; right: 14px;
+  background: rgba(255,255,255,.12);
+  border: none;
+  color: rgba(255,255,255,.7);
+  font-size: 18px;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Responsive — tablet ─────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Responsive — mobile ─────────────────────────────────────── */
 @media (max-width: 768px) {
+
+  /* sidebar becomes a slide-in overlay */
   :root { --sidebar-w: 0px; }
-  .sidebar { display: none; }
+
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 200;
+    box-shadow: none;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow2);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .sidebar-logo {
+    padding-right: 48px; /* room for close button */
+  }
+
+  /* hamburger visible */
+  .hamburger { display: flex; align-items: center; }
+
+  /* topbar */
   .main { margin-left: 0; }
-  .content { padding: 20px 16px; }
-  .topbar { padding: 0 16px; }
+
+  .topbar {
+    padding: 0 12px;
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .page-title { font-size: 15px; flex: 1; }
+
+  .topbar-right {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .topbar-right .tabs { flex-shrink: 0; }
+  .topbar-right .tab  { font-size: 12px; padding: 5px 10px; }
+
+  /* content */
+  .content { padding: 14px 12px 24px; }
+
+  /* stats grid */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 14px; }
+  .stat-card .value { font-size: 22px; }
+
+  /* grids */
+  .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
+
+  /* card */
+  .card-head { padding: 14px 14px 10px; flex-wrap: wrap; gap: 8px; }
+  .card-body { padding: 14px; }
+
+  /* table — horizontal scroll */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl { min-width: 560px; }
+  .tbl th, .tbl td { padding: 9px 10px; font-size: 12px; }
+
+  /* modals — full width on mobile */
+  .modal-overlay { padding: 12px; align-items: flex-end; }
+  .modal { max-height: 92vh; border-radius: 16px 16px 0 0; max-width: 100%; }
+
+  /* buttons */
+  .btn { font-size: 12.5px; padding: 7px 13px; }
+  .btn-sm { padding: 5px 10px; font-size: 11.5px; }
+
+  /* form */
+  .grid-2.form-grid { grid-template-columns: 1fr; }
+
+  /* hide non-essential topbar items on very small screens */
+  .topbar-right .text-muted { display: none; }
+
+  /* search bars in topbar collapse to content area on mobile */
+  .topbar-right .search-bar { min-width: 140px; }
+  .topbar-right .search-bar input { font-size: 12px; }
+
+  /* employee topbar: stack add button below tabs */
+  .topbar-right .btn-gold { order: 10; }
+
+  /* toast */
+  .toast-container { bottom: 16px; right: 12px; left: 12px; }
+  .toast { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-card .value { font-size: 20px; }
+  .content { padding: 10px 10px 20px; }
 }

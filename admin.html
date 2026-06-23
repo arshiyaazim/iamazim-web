@@ -8,9 +8,15 @@
 <style>
 .health-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .health-grid { grid-template-columns: 1fr 1fr; }
+  .llm-grid    { grid-template-columns: 1fr 1fr 1fr; }
+  .warn-list   { font-size: 13px; }
 }
 
 .health-card {

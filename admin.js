@@ -147,6 +147,65 @@ function requireAuth() {
   return true;
 }
 
+/* ── Mobile sidebar toggle ───────────────────────────────────── */
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (!sidebar) return;
+  const isOpen = sidebar.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function injectMobileShell() {
+  // Overlay backdrop
+  if (!document.getElementById('sidebar-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.id = 'sidebar-overlay';
+    overlay.className = 'sidebar-overlay';
+    overlay.onclick = closeSidebar;
+    document.body.prepend(overlay);
+  }
+
+  // Close button inside sidebar
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar && !sidebar.querySelector('.sidebar-close')) {
+    const btn = document.createElement('button');
+    btn.className = 'sidebar-close';
+    btn.innerHTML = '×';
+    btn.onclick = closeSidebar;
+    sidebar.style.position = 'fixed';
+    sidebar.appendChild(btn);
+  }
+
+  // Hamburger in topbar (prepend before page-title)
+  const topbar = document.querySelector('.topbar');
+  if (topbar && !topbar.querySelector('.hamburger')) {
+    const btn = document.createElement('button');
+    btn.className = 'hamburger';
+    btn.setAttribute('aria-label', 'Menu');
+    btn.innerHTML = '☰';
+    btn.onclick = toggleSidebar;
+    topbar.insertBefore(btn, topbar.firstChild);
+  }
+
+  // Close sidebar when a nav link is clicked on mobile
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeSidebar();
+    });
+  });
+}
+
 /* ── Sidebar navigation markup ───────────────────────────────── */
 
 const NAV_ITEMS = [
@@ -185,6 +244,8 @@ function renderNav(currentPage) {
       `).join('')}
     </div>
   `).join('');
+  // Mobile shell injected after nav is in the DOM
+  injectMobileShell();
 }
 
 /* ── Bridge status helper ────────────────────────────────────── */
