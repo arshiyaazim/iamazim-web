@@ -92,9 +92,10 @@
 
   <div class="content">
 
-    <div class="alert alert-warn mb-24">
-      ⚠ Settings below are read from the Fazle Core API. Env var changes require a <strong>service restart</strong>
-      (fazle-core uses <code>@lru_cache</code>). Actual values are not editable here — modify <code>/home/azim/core/.env</code> on the VPS.
+    <div class="alert alert-ok mb-24">
+      ✅ Connection credentials are pre-configured. All pages connect automatically.
+      Override any value below and click <strong>Save Configuration</strong> to store in your browser.
+      Env var changes on the server require a <strong>service restart</strong> (<code>fazle-core</code> uses <code>@lru_cache</code>).
     </div>
 
     <div class="grid-2">
@@ -216,11 +217,11 @@
 renderNav('settings.html');
 
 function loadConfig() {
-  document.getElementById('cfg-fazle-url').value  = localStorage.getItem('fazle_api_url') || 'http://127.0.0.1:8200';
-  document.getElementById('cfg-fazle-key').value  = localStorage.getItem('fazle_api_key') || '';
-  document.getElementById('cfg-lw-url').value     = localStorage.getItem('lw_api_url')    || 'http://127.0.0.1:8310';
-  document.getElementById('cfg-lw-token').value   = localStorage.getItem('lw_token')      || '';
-  document.getElementById('cfg-lw-secret').value  = localStorage.getItem('lw_gateway_secret') || '';
+  document.getElementById('cfg-fazle-url').value  = FAZLE_API();
+  document.getElementById('cfg-fazle-key').value  = FAZLE_KEY();
+  document.getElementById('cfg-lw-url').value     = LW_API();
+  document.getElementById('cfg-lw-token').value   = LW_TOKEN();
+  document.getElementById('cfg-lw-secret').value  = LW_SECRET();
 }
 
 function saveConfig() {

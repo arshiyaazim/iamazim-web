@@ -299,11 +299,11 @@
 renderNav('admin.html');
 
 function openSettings() {
-  document.getElementById('cfg-fazle-url').value  = localStorage.getItem('fazle_api_url') || 'http://127.0.0.1:8200';
-  document.getElementById('cfg-fazle-key').value  = localStorage.getItem('fazle_api_key') || '';
-  document.getElementById('cfg-lw-url').value     = localStorage.getItem('lw_api_url')    || 'http://127.0.0.1:8310';
-  document.getElementById('cfg-lw-token').value   = localStorage.getItem('lw_token')      || '';
-  document.getElementById('cfg-lw-secret').value  = localStorage.getItem('lw_gateway_secret') || '';
+  document.getElementById('cfg-fazle-url').value  = FAZLE_API();
+  document.getElementById('cfg-fazle-key').value  = FAZLE_KEY();
+  document.getElementById('cfg-lw-url').value     = LW_API();
+  document.getElementById('cfg-lw-token').value   = LW_TOKEN();
+  document.getElementById('cfg-lw-secret').value  = LW_SECRET();
   openModal('settings-modal');
 }
 
@@ -472,7 +472,7 @@ async function loadAll() {
         Check API URL and key in <strong>⚙ Config</strong>.
         <br><small>${e.message}</small>
       </div>`;
-    if (!FAZLE_KEY()) openSettings();
+    /* key always has a default — no prompt needed */
   }
 }
 

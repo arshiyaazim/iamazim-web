@@ -1,10 +1,10 @@
 /* Al-Aqsa Admin Panel — shared utilities */
 
 const FAZLE_API = () => localStorage.getItem('fazle_api_url') || 'http://127.0.0.1:8200';
-const FAZLE_KEY = () => localStorage.getItem('fazle_api_key') || '';
+const FAZLE_KEY = () => localStorage.getItem('fazle_api_key') || 'fk_MpRgBQCHFk43X1os4cgXrSjFnCqHVEyvlfciuUM7LPI';
 const LW_API    = () => localStorage.getItem('lw_api_url')    || 'http://127.0.0.1:8310';
-const LW_TOKEN  = () => localStorage.getItem('lw_token')      || '';
-const LW_SECRET = () => localStorage.getItem('lw_gateway_secret') || '';
+const LW_TOKEN  = () => localStorage.getItem('lw_token')      || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3ODIyNTA5MDksImV4cCI6MTgxMzc4NjkwOX0.404ISyhgRKyZpkQLKMBDEUoyVYxQe-BfmZqckMIXtt0';
+const LW_SECRET = () => localStorage.getItem('lw_gateway_secret') || '4bab47819a45359c24c7a486aaf36797f51d24ba40c3bb2d21964e96ae34bf2a';
 
 /* ── API helpers ─────────────────────────────────────────────── */
 
